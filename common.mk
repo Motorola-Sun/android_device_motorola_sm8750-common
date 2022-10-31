@@ -312,6 +312,7 @@ PRODUCT_PACKAGES += \
     DeviceAsWebcamResCommon \
     FrameworksResCommon \
     FrameworksResTarget \
+    LineageApertureAppCommon \
     LineageSdkCommon \
     SettingsProviderResCommon \
     SystemUIResCommon \
