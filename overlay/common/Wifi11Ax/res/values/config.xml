@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Wifi driver supports IEEE80211AX for softap -->
+    <bool name="config_wifiSoftapIeee80211axSupported">true</bool>
+
+    <!-- Wifi driver supports HE single user beamformer/beamformee for softap -->
+    <bool name="config_wifiSoftapHeSuBeamformerSupported">true</bool>
+    <bool name="config_wifiSoftapHeSuBeamformeeSupported">true</bool>
+</resources>

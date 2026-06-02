@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Boolean indicating whether the WiFi chipset has 5GHz band support -->
+    <bool name="config_wifi5ghzSupport">true</bool>
+
+    <!-- Boolean indicating whether the wifi chipset has background scan support -->
+    <bool name="config_wifi_background_scan_support">true</bool>
+
+    <!-- Boolean indicating whether 802.11r Fast BSS Transition is enabled -->
+    <bool name="config_wifi_fast_bss_transition_enabled">true</bool>
+
+    <!-- Wifi driver supports WPA3 Simultaneous Authentication of Equals (SAE) Hash-to-Element -->
+    <bool name="config_wifiSaeH2eSupported">true</bool>
+
+    <!-- Indicates that connected MAC randomization is supported on this device -->
+    <bool name="config_wifi_connected_mac_randomization_supported">true</bool>
+
+    <!-- Indicates that p2p MAC randomization is supported on this device -->
+    <bool name="config_wifi_p2p_mac_randomization_supported">true</bool>
+
+    <!-- Revert the country code to the default when cellular service is lost -->
+    <bool name="config_wifi_revert_country_code_on_cellular_loss">true</bool>
+
+    <!-- Allow insecure enterprise configurations from Settings and SUW -->
+    <bool name="config_wifiAllowInsecureEnterpriseConfigurationsForSettingsAndSUW">true</bool>
+
+    <!-- Do not override max number of spatial streams reported by the driver -->
+    <bool name="config_wifiFrameworkMaxNumSpatialStreamDeviceOverrideEnable">false</bool>
+
+    <!-- Indicates whether network configurations with the same credential are linked -->
+    <bool name="config_wifi_only_link_same_credential_configurations">false</bool>
+
+    <!-- Allow multiple networks on the same Aware NDI -->
+    <bool name="config_wifiAllowMultipleNetworksOnSameAwareNdi">true</bool>
+
+    <!-- Delay in ms to disconnect Wifi after IMS is lost -->
+    <integer name="config_wifiDelayDisconnectOnImsLostMs">1000</integer>
+
+    <!-- Network disable durations -->
+    <integer name="config_wifiDisableReasonAssociationRejectionDurationMs">180000</integer>
+    <integer name="config_wifiDisableReasonAuthenticationFailureDurationMs">180000</integer>
+    <integer name="config_wifiDisableReasonConsecutiveFailuresDurationMs">180000</integer>
+    <integer name="config_wifiDisableReasonDhcpFailureDurationMs">180000</integer>
+    <integer name="config_wifiDisableReasonNetworkNotFoundDurationMs">180000</integer>
+
+    <!-- Scan interval schedule when disconnected (in seconds) -->
+    <integer-array name="config_wifiDisconnectedScanIntervalScheduleSec">
+        <item>20</item>
+        <item>40</item>
+        <item>80</item>
+        <item>80</item>
+    </integer-array>
+
+    <!-- RSSI thresholds for signal level bars -->
+    <integer-array name="config_wifiRssiLevelThresholds">
+        <item>-88</item>
+        <item>-82</item>
+        <item>-75</item>
+        <item>-65</item>
+    </integer-array>
+
+    <!-- Charsets used for SSID translation -->
+    <string-array name="config_wifiCharsetsForSsidTranslation">
+        <item>zh,GBK</item>
+    </string-array>
+
+    <!-- Carrier specific EAP failure configuration -->
+    <string-array name="config_wifiEapFailureConfig">
+        <item>1915, 16385, 0, 3, 1</item>
+    </string-array>
+
+    <!-- Wifi TCP buffer sizes -->
+    <string name="config_wifi_tcp_buffers" translatable="false">524288,2097152,4194304,262144,524288,1048576</string>
+
+    <!-- Wifi driver supports ACS for softap -->
+    <bool name="config_wifi_softap_acs_supported">true</bool>
+
+    <!-- Include DFS channels for softap ACS -->
+    <bool name="config_wifiSoftapAcsIncludeDfs">true</bool>
+
+    <!-- Wifi driver supports WPA3 SAE for softap -->
+    <bool name="config_wifi_softap_sae_supported">true</bool>
+
+    <!-- Wifi driver supports IEEE80211AC for softap -->
+    <bool name="config_wifi_softap_ieee80211ac_supported">true</bool>
+
+    <!-- Do not check that the softap passphrase is ASCII encodable -->
+    <bool name="config_wifiSoftapPassphraseAsciiEncodableCheck">false</bool>
+
+    <!-- Hardware maximum number of softap clients -->
+    <integer name="config_wifiHardwareSoftapMaxClientCount">10</integer>
+
+    <!-- List of allowed 5GHz channels for softap -->
+    <string name="config_wifiSoftap5gChannelList" translatable="false">36-161</string>
+</resources>

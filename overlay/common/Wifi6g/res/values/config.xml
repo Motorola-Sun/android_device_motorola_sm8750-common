@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+    <!-- Boolean indicating whether the WiFi chipset has 6GHz band support -->
+    <bool name="config_wifi6ghzSupport">true</bool>
+
+    <!-- Wifi driver supports 6GHz band for softap -->
+    <bool name="config_wifiSoftap6ghzSupported">false</bool>
+
+    <!-- List of allowed 6GHz channels for softap -->
+    <string name="config_wifiSoftap6gChannelList" translatable="false">1-233</string>
+</resources>
