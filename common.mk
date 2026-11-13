@@ -71,15 +71,19 @@ PRODUCT_PACKAGES += \
     libmediautils_vendor.vendor \
     libmemunreachable.vendor
 
-AUDIO_HAL_DIR := hardware/qcom-caf/sm8450-6.6/audio/primary-hal
-CONFIG_HAL_SRC_DIR := $(AUDIO_HAL_DIR)/configs/parrot
+AUDIO_HAL_DIR := hardware/qcom-caf/sm8750/audio/primary-hal
+CONFIG_HAL_SRC_DIR := $(AUDIO_HAL_DIR)/configs/sun
+
+$(foreach sku, kera sun, \
+    $(eval PRODUCT_COPY_FILES += \
+        $(CONFIG_HAL_SRC_DIR)/audio_effects_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_$(sku)/audio_effects_config.xml \
+    ))
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio_policy_configuration.xml
 
 PRODUCT_COPY_FILES += \
-    $(CONFIG_HAL_SRC_DIR)/audio_effects_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_parrot/audio_effects_config.xml \
-    $(CONFIG_HAL_SRC_DIR)/card-defs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/card-defs.xml \
+    $(AUDIO_HAL_DIR)/../pal/configs/sun/card-defs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/card-defs.xml \
     $(CONFIG_HAL_SRC_DIR)/microphone_characteristics.xml:$(TARGET_COPY_OUT_VENDOR)/etc/microphone_characteristics.xml \
     $(CONFIG_HAL_SRC_DIR)/vendor_audio_interfaces.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vendor_audio_interfaces.xml
 
@@ -140,10 +144,10 @@ PRODUCT_PACKAGES += \
     vendor.qti.hardware.display.demura-service \
     vendor.qti.hardware.display.snapalloc-impl
 
-DISPLAY_HAL_DIR := hardware/qcom-caf/sm8450-6.6/display/core
+DISPLAY_HAL_DIR := hardware/qcom-caf/sm8750/display/core
 
 PRODUCT_COPY_FILES += \
-    $(DISPLAY_HAL_DIR)/../hal/config/snapdragon_color_libs_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/snapdragon_color_libs_config.xml
+    $(DISPLAY_HAL_DIR)/config/snapdragon_color_libs_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/snapdragon_color_libs_config.xml
 
 PRODUCT_COPY_FILES += \
     $(DISPLAY_HAL_DIR)/config/sdm_display_resolution_extn.xml:$(TARGET_COPY_OUT_VENDOR)/etc/display/sdm_display_resolution_extn.xml \
@@ -174,7 +178,7 @@ PRODUCT_PACKAGES += \
 # Fingerprint
 ifeq ($(TARGET_HAS_UDFPS), true)
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint-service.moto_parrot_fod
+    android.hardware.biometrics.fingerprint-service.moto_sun_fod
 endif
 
 PRODUCT_COPY_FILES += \
@@ -315,13 +319,9 @@ PRODUCT_PACKAGES += \
     SettingsProviderResCommon \
     SystemUIResCommon \
     TelephonyResCommon \
-    WifiResCommon
-
-ifeq ($(findstring adrastea,$(TARGET_WIFI_VARIANTS)),)
-PRODUCT_PACKAGES += \
+    WifiResCommon \
     Wifi6gResCommon \
     Wifi11AxResCommon
-endif
 
 # Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
@@ -335,7 +335,7 @@ PRODUCT_PACKAGES += \
     vendor_super_modem_mountpoint
 
 # Perf
-TARGET_PERF_VARIANT ?= parrot
+TARGET_PERF_VARIANT ?= kera
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/profiles/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json \
@@ -347,7 +347,7 @@ PRODUCT_PACKAGES += \
     android.hardware.power-service-qti
 
 PRODUCT_COPY_FILES += \
-    vendor/qcom/opensource/power/config/parrot/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
+    vendor/qcom/opensource/power/config/sun/powerhint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.xml
 
 # Sensors
 PRODUCT_PACKAGES += \
@@ -355,7 +355,7 @@ PRODUCT_PACKAGES += \
     sensors.dynamic_sensor_hal \
     sensors.moto_ext
 
-$(foreach sku, parrot, \
+$(foreach sku, kera sun, \
     $(eval PRODUCT_COPY_FILES += \
         frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/sku_$(sku)/android.hardware.sensor.accelerometer.xml \
         frameworks/native/data/etc/android.hardware.sensor.barometer.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/sku_$(sku)/android.hardware.sensor.barometer.xml \
@@ -442,7 +442,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.verified_boot.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.verified_boot.xml
 
 # Vibrator
-$(call soong_config_set,qti_vibrator,libpalclient_namespace,hardware/qcom-caf/sm8450-6.6)
+$(call soong_config_set,qti_vibrator,libpalclient_namespace,hardware/qcom-caf/sm8750)
 $(call soong_config_set_bool,qti_vibrator,use_libpalclient,true)
 
 PRODUCT_PACKAGES += \
@@ -460,7 +460,7 @@ DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
 DEVICE_MATRIX_FILE := hardware/qcom-caf/common/compatibility_matrix_aidl.xml
 DEVICE_MANIFEST_FILE += \
     $(CONFIG_HAL_SRC_DIR)/manifest_audio_qti_services.xml \
-    $(COMMON_PATH)/configs/vintf/manifest_parrot.xml
+    $(COMMON_PATH)/configs/vintf/manifest.xml
 
 # WiFi
 PRODUCT_PACKAGES += \
@@ -478,7 +478,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.ipsec_tunnels.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.software.ipsec_tunnels.xml
 
 # WiFi firmware symlinks
-TARGET_WIFI_VARIANTS ?= adrastea qca6750
+TARGET_WIFI_VARIANTS ?= qca6750
 
 PRODUCT_PACKAGES += \
      firmware_wlanmdsp.otaupdate_symlink
@@ -501,4 +501,4 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:$(TARGET_COPY_OUT_VENDOR)/etc/wifi/wpa_supplicant_overlay.conf
 
 # Inherit from the proprietary files makefile.
-$(call inherit-product, vendor/motorola/sm6450-common/sm6450-common-vendor.mk)
+$(call inherit-product, vendor/motorola/sm8750-common/sm8750-common-vendor.mk)

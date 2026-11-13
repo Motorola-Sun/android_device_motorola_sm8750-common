@@ -4,9 +4,9 @@
 //
 
 cc_binary {
-    name: "android.hardware.biometrics.fingerprint-service.moto_parrot_fod",
-    vintf_fragments: ["android.hardware.biometrics.fingerprint-service.moto_parrot_fod.xml"],
-    init_rc: ["android.hardware.biometrics.fingerprint-service.moto_parrot_fod.rc"],
+    name: "android.hardware.biometrics.fingerprint-service.moto_sun_fod",
+    vintf_fragments: ["android.hardware.biometrics.fingerprint-service.moto_sun_fod.xml"],
+    init_rc: ["android.hardware.biometrics.fingerprint-service.moto_sun_fod.rc"],
     relative_install_path: "hw",
     vendor: true,
     srcs: [

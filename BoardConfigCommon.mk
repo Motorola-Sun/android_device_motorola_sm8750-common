@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
-COMMON_PATH := device/motorola/sm6450-common
+COMMON_PATH := device/motorola/sm8750-common
 
 # A/B
 AB_OTA_PARTITIONS += \
@@ -25,7 +25,8 @@ AB_OTA_PARTITIONS += \
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-2a-dotprod
 TARGET_CPU_ABI := arm64-v8a
-TARGET_CPU_VARIANT := cortex-a76
+TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT_RUNTIME := oryon
 
 # Audio
 AUDIO_FEATURE_ENABLED_DLKM := true
@@ -52,7 +53,6 @@ BOARD_RAMDISK_USE_LZ4 := true
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_USES_QCOM_MERGE_DTBS_SCRIPT := true
 TARGET_NEEDS_DTBOIMAGE := true
-TARGET_MERGE_DTBS_WILDCARD ?= parrot-moto-base*
 
 # Filesystem
 TARGET_FS_CONFIG_GEN := $(COMMON_PATH)/configs/config.fs
@@ -81,16 +81,16 @@ BOARD_KERNEL_BASE := 0x00000000
 TARGET_KERNEL_VERSION := 6.6
 BOARD_USES_GENERIC_KERNEL_IMAGE := true
 
-TARGET_KERNEL_SOURCE := kernel/motorola/sm6450
+TARGET_KERNEL_SOURCE := kernel/motorola/sm8750
 TARGET_KERNEL_CONFIG := \
     gki_defconfig \
-    vendor/parrot_perf.config \
-    vendor/ext_config/moto-parrot.config \
-    vendor/ext_config/moto-parrot-$(PRODUCT_DEVICE).config
+    vendor/sun_perf.config \
+    vendor/ext_config/moto-sun.config \
+    vendor/ext_config/moto-sun-$(PRODUCT_DEVICE).config
 
 # Kernel modules
 BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE += \
-    $(TARGET_KERNEL_SOURCE)/modules.vendor_blocklist.msm.parrot \
+    $(TARGET_KERNEL_SOURCE)/modules.vendor_blocklist.msm.sun \
     $(DEVICE_PATH)/kernel/modules.blocklist
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES_BLOCKLIST_FILE += $(BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE)
 
@@ -110,7 +110,7 @@ BOOT_KERNEL_MODULES += \
     $(BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD)
 SYSTEM_KERNEL_MODULES := $(strip $(shell cat $(COMMON_PATH)/kernel/modules.load.system_dlkm))
 
-TARGET_KERNEL_EXT_MODULE_ROOT := kernel/motorola/sm6450-modules
+TARGET_KERNEL_EXT_MODULE_ROOT := kernel/motorola/sm8750-modules
 TARGET_KERNEL_EXT_MODULES := \
     qcom/opensource/mmrm-driver \
     qcom/opensource/mm-drivers/msm_ext_display \
@@ -199,7 +199,7 @@ $(foreach p, $(call to-upper, $(BOARD_MOT_DP_GROUP_PARTITION_LIST)), \
 
 # Platform
 BOARD_USES_QCOM_HARDWARE := true
-TARGET_BOARD_PLATFORM := parrot
+TARGET_BOARD_PLATFORM := sun
 
 # Properties
 TARGET_ODM_PROP += $(COMMON_PATH)/configs/properties/odm.prop
@@ -249,4 +249,4 @@ WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 
 # Include the proprietary files BoardConfig.
-include vendor/motorola/sm6450-common/BoardConfigVendor.mk
+include vendor/motorola/sm8750-common/BoardConfigVendor.mk

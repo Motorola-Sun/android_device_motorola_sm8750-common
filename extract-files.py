@@ -21,9 +21,9 @@ from extract_utils.main import (
 )
 
 namespace_imports = [
-    "device/motorola/sm6450-common",
+    "device/motorola/sm8750-common",
     "hardware/motorola",
-    "hardware/qcom-caf/sm8450-6.6",
+    "hardware/qcom-caf/sm8750",
     "hardware/qcom-caf/wlan",
     "vendor/qcom/opensource/commonsys/display",
     "vendor/qcom/opensource/commonsys-intf/display",
@@ -109,7 +109,7 @@ blob_fixups: blob_fixups_user_type = {
 }  # fmt: skip
 
 module = ExtractUtilsModule(
-    "sm6450-common",
+    "sm8750-common",
     "motorola",
     blob_fixups=blob_fixups,
     lib_fixups=lib_fixups,
