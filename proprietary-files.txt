@@ -92,31 +92,36 @@ vendor/lib64/soundfx/libvisualizeraidl.so;DISABLE_DEPS
 vendor/lib64/soundfx/libvolumelistener.so;DISABLE_DEPS
 vendor/lib64/soundfx/libquasar.so;DISABLE_DEPS
 
-# Bluetooth - from pdx257 72.1.A.2.127
-vendor/bin/hw/android.hardware.bluetooth@aidl-service-qti|26260568432049745737e7e5a4eb38d2260579d4
+# Bluetooth - from pdx256 71.2.A.2.70
+vendor/bin/hw/android.hardware.bluetooth@aidl-service-qti|bd8664cb72a98893e5af9a14fc5d01c15466f235
 vendor/etc/init/android.hardware.bluetooth@aidl-service-qti.rc|aba655e902c490e552af8e3a41177c8d98748ac2
+vendor/etc/vintf/manifest/bluetooth-finder.xml|8f260b0f53c28320ea87f49a0beec4415fcfe3d6
 vendor/etc/vintf/manifest/bluetooth_hci.xml|13a5f20e77b01b8f78b916c6efbb4cf6bafa8205
 vendor/etc/vintf/manifest/bluetooth_sar.xml|6ecdea14f258c198ec1234d966c410beb291236b
+vendor/etc/vintf/manifest/bt_lmp_event-saidl.xml|45bbd6f22553d4f1a8103f99d02e6a7be06b3994
 vendor/etc/vintf/manifest/bttpi-saidl.xml|a49eea4c62be9c856dfa842db8f08d2a87ff21dd
 vendor/etc/vintf/manifest/manifest_btaudiocoreservices_qti.xml|99c1c1cef69952852d30be97dd58067471825cbc
-vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-qti.so|33fa5dfad99e1de144301e417bb603dd38c77570
-vendor/lib64/hw/android.hardware.bluetooth@aidl-impl-qti.so|53385c0413eb72788ce33a908e42c33622c35eab
-vendor/lib64/hw/mbedtls_qti.so|acefbe60ccc59621ae3b1a7c880979c9672c5997
-vendor/lib64/hw/vendor.qti.hardware.bluetooth_sar@aidl-impl.so|b930d1d7b829b8bdcbabeeeb8e2429f150a15269
-vendor/lib64/hw/vendor.qti.hardware.bttpi-impl.so|7feca794a783e37f986503d8c72d494ee6acae19
-vendor/lib64/libbtnv.so|c002576d44dc559b688bf1d78c5bf627720b4875
-vendor/lib64/libsoc_helper.so|fe54074bf6d9e37cd2c8c076a43e74f09526ba8a
-vendor/lib64/vendor.qti.hardware.bluetooth_sar-V1-ndk.so|50c9ea0a88b168727957fb88e682c7a2afaed779
-vendor/lib64/vendor.qti.hardware.bttpi-V3-ndk.so|856786a9216b9679604906cbc3875dc2f0f64660
+vendor/lib64/hw/android.hardware.bluetooth.lmp_event-impl-qti.so|32612d8f9d14144c55a23edc83856b3fe87a9e47
+vendor/lib64/hw/android.hardware.bluetooth@1.0-impl-qti.so|4b425fe049b2d922d6aac9f06858c3e43ac7bc1b
+vendor/lib64/hw/android.hardware.bluetooth@aidl-impl-qti.so|352838ca789c3cd4ad18799c84f1dad6c5a56c16
+vendor/lib64/hw/mbedtls_qti.so|9bebd6b32abb0d5a8e60c8e0e059d4897cc95f7b
+vendor/lib64/hw/vendor.qti.hardware.bluetooth.finder-impl-qti.so|91a2efdfee8d3dce54ff144b3db0c0800adc335d
+vendor/lib64/hw/vendor.qti.hardware.bluetooth_sar@aidl-impl.so|b1dc5dcb922f76a5e5d4c8edc8585e6c471032de
+vendor/lib64/hw/vendor.qti.hardware.bttpi-impl.so|15453e820f57d0a3bd7d71fdf6732d4f4d1dd0d8
+vendor/lib64/libbt-hidlclient.so|8fc22f3a85ad166cb533f7f8b2d93c6d53a58a40
+vendor/lib64/libbtnv.so|0dc2bf675082049a0fbfe22d2fc0199bd135ed03
+vendor/lib64/libsoc_helper.so|871cc6072561cf92f6d9fa3e07488889aa894979
+vendor/lib64/vendor.qti.hardware.bluetooth_sar-V1-ndk.so|92ee9b5d91ec3fafd0940abd02ab5df7a4c94cf9
+vendor/lib64/vendor.qti.hardware.bttpi-V3-ndk.so|0cd2bcd2e002d37fa8d821862b2c79fefc461eaf
 
-# Bluetooth (A2DP) - from pdx257 72.1.A.2.127
-vendor/lib64/hw/android.hardware.bluetooth.audio-impl-qti.so|f7493d5079e037f101e5b6499b0d039b71536394
-vendor/lib64/hw/android.hardware.bluetooth.audio_sw.so;DISABLE_CHECKELF|87a698117c392c2cc30ac012a56d25da734cc546
-vendor/lib64/hw/audio.bluetooth_qti.default.so|6f43000b9018af2facb494c601359d9f1883457c
-vendor/lib64/btaudio_offload_if.so|005226ff201c489927125121f456321d7ed67c50
-vendor/lib64/libbluetooth_audio_session_aidl_qti.so|7f768cf5d445e190e15bdb2b5250f6375b27a921
-vendor/lib64/libbluetooth_audio_session_qti.so|daf4f92df85699d34f16cac19753be91f13e6a02
-vendor/lib64/libbluetooth_audio_session_qti_2_1.so|1c2e6518d0df6fbb4698cfe9bf7fc9d701183191
+# Bluetooth (A2DP) - from pdx256 71.2.A.2.70
+vendor/lib64/hw/android.hardware.bluetooth.audio-impl-qti.so|ee527b6f5644e8d84235942983bfb74eef7279fc
+vendor/lib64/hw/android.hardware.bluetooth.audio_sw.so;DISABLE_DEPS|96fbeb2528dab71936fe0887a72155ef726bc800
+vendor/lib64/hw/audio.bluetooth_qti.default.so|8141b4bce3fd31ffced71235d1b843c287dccf7a
+vendor/lib64/btaudio_offload_if.so|7b2e470ba27266052146024fd2c43aa33736758a
+vendor/lib64/libbluetooth_audio_session_aidl_qti.so|f86d7b61f1ab0c2121da61aff6f4b4e65f306cd5
+vendor/lib64/libbluetooth_audio_session_qti.so|8f473b5f83d3c8e1132c62b1652760ce59edb625
+vendor/lib64/libbluetooth_audio_session_qti_2_1.so|0d5246efbcb65e2898e16b321762ad0dc852a63a
 
 # C2PA
 vendor/bin/hw/vendor.qti.hardware.c2pa-aidl-service-qti
