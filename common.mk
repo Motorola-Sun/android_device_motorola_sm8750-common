@@ -42,12 +42,14 @@ PRODUCT_PACKAGES += \
     libhfp_pal \
     libmediautils_vendor.vendor \
     libmemunreachable.vendor \
+    libpaleventnotifier \
     libpalipcservice \
     libqcompostprocbundle \
     libqcomvisualizer \
     libqcomvoiceprocessing \
     libsndcardparser \
     libsoundtriggerhal.qti \
+    libtinyxml2-v36 \
     libvolumelistener \
     qti-audio-types-aidl-V1-ndk.vendor \
     qtiaudiohalvendorextn
@@ -77,6 +79,7 @@ CONFIG_HAL_SRC_DIR := $(AUDIO_HAL_DIR)/configs/sun
 $(foreach sku, kera sun, \
     $(eval PRODUCT_COPY_FILES += \
         $(CONFIG_HAL_SRC_DIR)/audio_effects_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_$(sku)/audio_effects_config.xml \
+        $(CONFIG_HAL_SRC_DIR)/audio_policy_configuration.xml:$(TARGET_COPY_OUT_VENDOR)/etc/audio/sku_$(sku)/audio_policy_configuration.xml \
     ))
 
 PRODUCT_COPY_FILES += \
@@ -85,6 +88,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(AUDIO_HAL_DIR)/../pal/configs/sun/card-defs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/card-defs.xml \
     $(CONFIG_HAL_SRC_DIR)/microphone_characteristics.xml:$(TARGET_COPY_OUT_VENDOR)/etc/microphone_characteristics.xml \
+    $(CONFIG_HAL_SRC_DIR)/quasar_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/quasar_config.xml \
     $(CONFIG_HAL_SRC_DIR)/vendor_audio_interfaces.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vendor_audio_interfaces.xml
 
 PRODUCT_COPY_FILES += \
@@ -335,12 +339,10 @@ PRODUCT_PACKAGES += \
     vendor_super_modem_mountpoint
 
 # Perf
-TARGET_PERF_VARIANT ?= kera
-
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/profiles/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json \
     $(LOCAL_PATH)/configs/perf/perfconfigstore.xml:$(TARGET_COPY_OUT_VENDOR)/etc/perf/perfconfigstore.xml \
-    $(LOCAL_PATH)/configs/perf/$(TARGET_PERF_VARIANT)/perfboostsconfig.xml:$(TARGET_COPY_OUT_VENDOR)/etc/perf/perfboostsconfig.xml
+    $(LOCAL_PATH)/configs/perf/perfboostsconfig.xml:$(TARGET_COPY_OUT_VENDOR)/etc/perf/perfboostsconfig.xml
 
 # Power
 PRODUCT_PACKAGES += \

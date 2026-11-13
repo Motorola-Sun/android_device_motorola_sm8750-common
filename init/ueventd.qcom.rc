@@ -331,10 +331,25 @@ subsystem mem_buf_vm
 /dev/tsc_mux0             0660   media       media
 /dev/tsc_ci0              0660   media       media
 
-# Backlight
-/sys/class/backlight/aw99703-bl    brightness    0664    system    system
-/sys/class/backlight/ktd3136-bl    brightness    0664    system    system
+# Change permission for FPC fingerprint
+/sys/class/fingerprint/fpc1020 nav        0440     system    system
+/sys/class/fingerprint/fpc1020 irq        0440     system    system
+/sys/class/fingerprint/fpc1020 irq_cnt    0440     system    system
+/sys/class/fingerprint/fpc1020 dev_enable 0220     system    system
+/sys/class/fingerprint/fpc1020 vendor     0444     system    system
+/sys/class/fingerprint/fpc1020 hw_reset   0220     system    system
 
+/sys/devices/platform/soc/soc\:fpc_fpc1020 irq          0440     system    system
+/sys/devices/platform/soc/soc\:fpc_fpc1020 irq_cnt      0440     system    system
+/sys/devices/platform/soc/soc\:fpc_fpc1020 dev_enable   0220     system    system
+/sys/devices/platform/soc/soc\:fpc_fpc1020 hw_reset     0220     system    system
+
+# Goodix fingerprint device
+/dev/goodix_fp            0660   system     system
+
+
+# Anc fingerprint device
+/dev/jiiov_fp             0660   system     system
 # sensors
 /dev/sensors              0660   system     system
 /sys/devices/i2c-12/12-*  pollrate_ms 0664 system system
@@ -409,9 +424,6 @@ subsystem mem_buf_vm
 # eSE permissions
 /dev/st54spi_gpio         0660   system     system
 
-# eSE permissions
-/dev/st54spi_gpio         0660   system     system
-
 # UIO devices
 /dev/uio0                 0660   system     system
 /dev/uio1                 0660   system     system
@@ -433,18 +445,6 @@ subsystem mem_buf_vm
 /dev/qbt*                 0660   system     system
 /sys/class/fts/touch_aoi aoi_set 0660 root system
 /sys/class/fts/touch_aoi power_set 0660 root system
-
-# Goodix fingerprint device
-/dev/goodix_fp            0660   system     system
-
-# Focal fingerprint device
-/dev/focaltech_fp         0660   system     system
-
-# EgisTech fingerprint device
-/dev/esfp0                0660   system     system
-
-# Anc fingerprint device
-/dev/jiiov_fp             0660   system     system
 
 #ImproveTouch device
 /dev/hbtp_input           0660   system     system
@@ -650,18 +650,13 @@ subsystem mem_buf_vm
 
 # Q2SPI UWB device
 /dev/q2spiuwb    0660    uwb    uwb
+/dev/uci0        0660    uwb    uwb
 
 # RemoteProc state
 /sys/class/remoteproc/remoteproc*   state    0660    root  system
 
 # IPA Events
 /dev/ipa_events         0660   radio      radio
-
-# fingerprint sysfs node permission
-/sys/class/fingerprint/fpc1020 dev_enable 0660 system system
-/sys/class/fingerprint/fpc1020 hw_reset   0660 system system
-/sys/class/fingerprint/fpc1020 irq        0660 system system
-/sys/class/fingerprint/fpc1020 irq_cnt    0660 system system
 
 # Additional sensors
 /sys/class/touchscreen/*    double_tap_enabled                                                0664    system  system

@@ -186,6 +186,48 @@ wait_for_poweron()
 
 setup_permissions()
 {
+	local bootmode=$(getprop $bootmode_property 2> /dev/null)
+	local key_path
+	local key_files
+	local entry
+    if [ "$bootmode" == "mot-factory" ]; then
+		debug "loosen permissions to $touch_vendor files"
+		case $touch_vendor in
+			  samsung)	key_path="/sys/devices/virtual/sec/sec_ts/"
+						key_files=$(ls $key_path 2>/dev/null)
+						# Set optional permissions to LSI touch tests
+						[ -f $touch_path/size ] && chown root:vendor_tcmd $touch_path/size
+						[ -f $touch_path/address ] && chown root:vendor_tcmd $touch_path/address
+						[ -f $touch_path/write ] && chown root:vendor_tcmd $touch_path/write
+						;;
+			   pixart)	key_path="/sys/bus/i2c/devices/1-0033"
+						key_files="selftest selftest_bin"
+						;;
+			synaptics)	key_path=$touch_path
+						key_files=$(prepend f54 `ls $touch_path/f54/ 2>/dev/null`)
+						key_files=$key_files"reporting query stats";;
+			focaltech)	key_path="/proc/"
+						key_files="ftxxxx-debug";;
+			   ilitek)	key_path="/proc/ilitek"
+						key_files="ioctl";;
+			   goodix)	key_path="/proc/"
+						key_files="gmnode"
+						if [[ "$touch_instance" == "GTx5" ]] || [[ "$touch_instance" == "GTx8" ]]; then
+							key_path="/dev/"
+							key_files="gtp_tools"
+						fi
+						;;
+			   stmicro)	key_path="/proc/fts/"
+						key_files="driver_test"
+						# Set optional permissions to LSI touch tests
+						[ -f $touch_path/calibrate ] && chown root:vendor_tcmd $touch_path/calibrate
+						;;
+		esac
+		for entry in $key_files; do
+			chmod 0666 $key_path/$entry
+			debug "change permissions of $key_path/$entry"
+		done
+	fi
 	# Set permissions to enable factory touch tests
 	chown root:vendor_tcmd $touch_path/drv_irq
 	chown root:vendor_tcmd $touch_path/hw_irqstat
@@ -577,6 +619,13 @@ set_ro_hw_properties_exponent_panel()
 	lid=1
 
 	has_lid=$(getprop $lid_property 2> /dev/null)
+
+	local prim_enable_brightnesszone_path=/sys/class/drm/card0-DSI-1/panelEnableSfBrightZone
+	local prim_enable_brightnesszone_prop=ro.vendor.hw.prim_enable_sf_brightnesszone
+
+	local cli_enable_brightnesszone_path=/sys/class/drm/card0-DSI-2/panelEnableSfBrightZone
+	local cli_enable_brightnesszone_prop=ro.vendor.hw.cli_enable_sf_brightnesszone
+
 	while [ "$wait_cnt" -lt 15 ]; do
 		if [ -e $panelname_path ]; then
 			panelname=$(cat $panelname_path)
@@ -587,6 +636,29 @@ set_ro_hw_properties_exponent_panel()
 			    prim_declare_str=$(cat $prim_declare_path)
 			    setprop $prim_declare_prop "$prim_declare_str"
 			    notice "setprop $prim_declare_prop as $prim_declare_str for panel [$panelname]"
+			fi
+			if [ -e $prim_enable_brightnesszone_path ]; then
+			    prim_enable_brightnesszone_str=$(cat $prim_enable_brightnesszone_path)
+				if [ $prim_enable_brightnesszone_str -eq 1 ]; then
+			    setprop $prim_enable_brightnesszone_prop true
+			    notice "setprop $prim_enable_brightnesszone_prop as true"
+				fi
+				if [ $prim_enable_brightnesszone_str -eq 0 ]; then
+			    setprop $prim_enable_brightnesszone_prop false
+			    notice "setprop $prim_enable_brightnesszone_prop as false"
+				fi
+			fi
+
+			if [ -e $cli_enable_brightnesszone_path ]; then
+			    cli_enable_brightnesszone_str=$(cat $cli_enable_brightnesszone_path)
+				if [ $cli_enable_brightnesszone_str -eq 1 ]; then
+			    setprop $cli_enable_brightnesszone_prop true
+			    notice "setprop $cli_enable_brightnesszone_prop as true"
+				fi
+				if [ $cli_enable_brightnesszone_str -eq 0 ]; then
+			    setprop $cli_enable_brightnesszone_prop false
+			    notice "setprop $cli_enable_brightnesszone_prop as false"
+				fi
 			fi
 			if [ $has_lid -eq $lid ]
 			then

@@ -67,11 +67,7 @@ blob_fixups: blob_fixups_user_type = {
         ),
     'vendor/etc/sensors/hals.conf': blob_fixup()
         .add_line_if_missing('sensors.moto_ext.so'),
-    (
-        'vendor/lib64/hw/libaudioeffecthal.qti.so',
-        'vendor/lib64/libdpps.so',
-        'vendor/lib64/libsnapdragoncolor-manager.so',
-    ): blob_fixup()
+    'vendor/lib64/hw/libaudioeffecthal.qti.so': blob_fixup()
         .replace_needed('libtinyxml2.so', 'libtinyxml2-v36.so'),
     'vendor/etc/seccomp_policy/syshealthmon.policy': blob_fixup()
         .add_line_if_missing('lseek: 1'),
@@ -114,10 +110,6 @@ module = ExtractUtilsModule(
     blob_fixups=blob_fixups,
     lib_fixups=lib_fixups,
     namespace_imports=namespace_imports,
-)
-
-module.add_proprietary_file("proprietary-files-fm.txt").add_copy_files_guard(
-    "TARGET_HAS_FM", "true"
 )
 
 if __name__ == "__main__":

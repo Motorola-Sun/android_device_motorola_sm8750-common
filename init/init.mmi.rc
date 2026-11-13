@@ -72,6 +72,7 @@ on post-fs && property:ro.vendor.hw.fsg_super_image=yes
 
 on post-fs
     mkdir /mnt/vendor/persist/camera 0755 vendor_tcmd vendor_tcmd
+    mkdir /mnt/vendor/persist/camera/iqtuning 0755 vendor_tcmd vendor_tcmd
     mkdir /mnt/vendor/persist/camera/dualcal 0775 camera vendor_tcmd
     mkdir /mnt/vendor/persist/camera/focus 0775 camera vendor_tcmd
     mkdir /mnt/vendor/persist/camera/ledcal 0775 camera vendor_tcmd
@@ -178,6 +179,21 @@ on boot
    # change permission of red leds
    chown system system /sys/class/leds/red/brightness
    chmod 0664 /sys/class/leds/red/brightness
+
+   # Change ownership and permission for vibrator
+   chown system system /sys/class/timed_output/vibrator/enable
+   chmod 0660 /sys/class/timed_output/vibrator/enable
+   chown system system /sys/class/leds/vibrator/state
+   chmod 0660 /sys/class/leds/vibrator/state
+   chown system system /sys/class/leds/vibrator/activate
+   chmod 0660 /sys/class/leds/vibrator/activate
+   chown system system /sys/class/leds/vibrator/duration
+   chmod 0660 /sys/class/leds/vibrator/duration
+   chown system system /sys/class/leds/vibrator/seq
+   chmod 0660 /sys/class/leds/vibrator/seq
+   chown system system /sys/class/leds/vibrator/extra
+   chmod 0660 /sys/class/leds/vibrator/extra
+   chown root vendor_mod /sys/bus/i2c/devices/2-005a/reduce
 
    # Change ownership of aov related sysfs entries
    chown audio audio /sys/kernel/aov/trigger

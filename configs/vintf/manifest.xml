@@ -4,7 +4,7 @@
         <fqname>IGatekeeper/default</fqname>
     </hal>
     <hal format="aidl">
-        <name>android.hardware.media.c2</name>
-        <fqname>IComponentStore/default</fqname>
+        <name>android.hardware.secure_element</name>
+        <fqname>ISecureElement/eSE1</fqname>
     </hal>
 </manifest>
