@@ -65,7 +65,8 @@ BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
 BOARD_KERNEL_CMDLINE += \
     printk.devkmsg=on \
     scsi_mod.scan=sync \
-    firmware_class.path=/vendor/firmware_mnt/image
+    firmware_class.path=/vendor/firmware_mnt/image \
+    androidboot.selinux=permissive
 
 BOARD_BOOTCONFIG += \
     androidboot.hardware=qcom \
@@ -89,10 +90,10 @@ TARGET_KERNEL_CONFIG := \
     vendor/ext_config/moto-sun-$(PRODUCT_DEVICE).config
 
 # Kernel modules
-BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE += \
-    $(TARGET_KERNEL_SOURCE)/modules.vendor_blocklist.msm.sun \
-    $(DEVICE_PATH)/kernel/modules.blocklist
+BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE += $(TARGET_KERNEL_SOURCE)/modules.vendor_blocklist.msm.sun
 BOARD_VENDOR_RAMDISK_KERNEL_MODULES_BLOCKLIST_FILE += $(BOARD_VENDOR_KERNEL_MODULES_BLOCKLIST_FILE)
+
+BOARD_SYSTEM_KERNEL_MODULES_LOAD := $(strip $(shell sed 's/#.*$$//;/^$$/d' $(COMMON_PATH)/kernel/modules.load.system_dlkm))
 
 BOARD_VENDOR_KERNEL_MODULES_LOAD := \
     $(strip $(shell cat \
@@ -108,11 +109,15 @@ BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := \
 BOOT_KERNEL_MODULES += \
     $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD) \
     $(BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD)
-SYSTEM_KERNEL_MODULES := $(strip $(shell cat $(COMMON_PATH)/kernel/modules.load.system_dlkm))
+
+SYSTEM_KERNEL_MODULES :+= \
+    $(BOARD_SYSTEM_KERNEL_MODULES_LOAD) \
+    $(strip $(shell sed 's/#.*$$//;/^$$/d' $(COMMON_PATH)/kernel/modules.kunit))
 
 TARGET_KERNEL_EXT_MODULE_ROOT := kernel/motorola/sm8750-modules
 TARGET_KERNEL_EXT_MODULES := \
     qcom/opensource/mmrm-driver \
+    qcom/opensource/mm-drivers/hw_fence \
     qcom/opensource/mm-drivers/msm_ext_display \
     qcom/opensource/mm-drivers/sync_fence \
     qcom/opensource/audio-kernel \
@@ -132,50 +137,39 @@ TARGET_KERNEL_EXT_MODULES := \
     qcom/opensource/datarmnet-ext/wlan \
     qcom/opensource/display-drivers/msm \
     qcom/opensource/dsp-kernel \
+    qcom/opensource/eva-kernel \
+    qcom/opensource/fingerprint \
     qcom/opensource/graphics-kernel \
     qcom/opensource/spu-kernel \
-    qcom/opensource/touch-drivers \
     qcom/opensource/video-driver \
     qcom/opensource/wlan/platform \
-    qcom/opensource/wlan/qcacld-3.0/.adrastea \
-    qcom/opensource/wlan/qcacld-3.0/.qca6490 \
     qcom/opensource/wlan/qcacld-3.0/.qca6750 \
     qcom/opensource/bt-kernel \
     nxp/opensource/driver \
-    st/opensource/driver
+    st/opensource/driver \
+    st/opensource/eSE-driver
 
 TARGET_KERNEL_EXT_MODULES += \
     motorola/drivers/mmi_annotate \
     motorola/drivers/mmi_info \
+    motorola/drivers/mmi_relay	\
     motorola/drivers/power/bm_adsp_ulog \
-    motorola/drivers/power/mmi_charger \
-    motorola/drivers/power/qti_glink_charger \
+    motorola/drivers/power/mmi_glink_charger/qti_glink_charger_v2 \
+    motorola/drivers/power/mmi_glink_charger \
     motorola/drivers/power/qpnp_adaptive_charge \
     motorola/drivers/misc/utag \
-    motorola/drivers/mmi_relay \
     motorola/drivers/misc/mmi_sys_temp \
     motorola/drivers/sensors \
-    motorola/drivers/backlight/aw99703 \
-    motorola/drivers/backlight/ktd3136 \
     motorola/drivers/misc/awinic/sarsensor \
+    motorola/drivers/misc/awinic/haptic_hv_qcom_v1.5.0 \
+    motorola/drivers/misc/hall \
     motorola/drivers/misc/sx937x \
-    motorola/drivers/misc/stk501xx \
     motorola/drivers/input/touchscreen/touchscreen_mmi \
-    motorola/drivers/input/touchscreen/chipone_tddi_v3_mmi \
-    motorola/drivers/input/touchscreen/focaltech_0flash_v2_mmi \
     motorola/drivers/input/touchscreen/focaltech_touch_v3_4 \
     motorola/drivers/input/touchscreen/goodix_berlin_mmi \
-    motorola/drivers/input/touchscreen/ili9882_mmi \
-    motorola/drivers/input/touchscreen/ilitek_v4_mmi \
     motorola/drivers/input/misc/anc_fps_mmi \
-    motorola/drivers/input/misc/fpc_fps_mmi \
     motorola/drivers/input/misc/goodix_fod_mmi \
-    motorola/drivers/wlan_antenna \
-    motorola/drivers/regulator/dio8015 \
-    motorola/drivers/regulator/wl2866d \
-    motorola/drivers/fm \
-    motorola/drivers/nfc/st21nfc \
-    motorola/drivers/ese/st54x
+    motorola/drivers/regulator/wl2866d
 
 # Metadata
 BOARD_USES_METADATA_PARTITION := true

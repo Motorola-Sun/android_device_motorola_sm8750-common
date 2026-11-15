@@ -38,6 +38,7 @@ PRODUCT_PACKAGES += \
     libagmipcservice \
     libaudiochargerlistener \
     libbatterylistener \
+    libcustomva_intf \
     libfmpal \
     libhfp_pal \
     libmediautils_vendor.vendor \
@@ -87,6 +88,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_COPY_FILES += \
     $(AUDIO_HAL_DIR)/../pal/configs/sun/card-defs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/card-defs.xml \
+    $(CONFIG_HAL_SRC_DIR)/mem_logger_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/mem_logger_config.xml \
     $(CONFIG_HAL_SRC_DIR)/microphone_characteristics.xml:$(TARGET_COPY_OUT_VENDOR)/etc/microphone_characteristics.xml \
     $(CONFIG_HAL_SRC_DIR)/quasar_config.xml:$(TARGET_COPY_OUT_VENDOR)/etc/quasar_config.xml \
     $(CONFIG_HAL_SRC_DIR)/vendor_audio_interfaces.xml:$(TARGET_COPY_OUT_VENDOR)/etc/vendor_audio_interfaces.xml
@@ -251,7 +253,7 @@ PRODUCT_PACKAGES += \
 
 # Kernel
 PRODUCT_COPY_FILES += \
-    kernel/motorola/sm6450/modules.systemdlkm_blocklist.msm.parrot:$(TARGET_COPY_OUT_VENDOR_DLKM)/lib/modules/modules.blocklist.system_dlkm
+    kernel/motorola/sm8750/modules.systemdlkm_blocklist.msm.sun:$(TARGET_COPY_OUT_VENDOR_DLKM)/lib/modules/modules.blocklist.system_dlkm
 
 # Keymint
 PRODUCT_PACKAGES += \
