@@ -449,12 +449,17 @@ PRODUCT_COPY_FILES += \
 $(call soong_config_set,qti_vibrator,libpalclient_namespace,hardware/qcom-caf/sm8750)
 $(call soong_config_set_bool,qti_vibrator,use_libpalclient,true)
 
+ifeq ($(TARGET_USES_TIKTAP_VIBRATOR),true)
+PRODUCT_PACKAGES += \
+    android.hardware.vibrator-service.moto-tiktap
+else
 PRODUCT_PACKAGES += \
     vendor.qti.hardware.vibrator.service
 
 PRODUCT_COPY_FILES += \
     vendor/qcom/opensource/vibrator/aidl/HapticsPolicy.xml:$(TARGET_COPY_OUT_VENDOR)/etc/HapticsPolicy.xml \
     vendor/qcom/opensource/vibrator/excluded-input-devices.xml:$(TARGET_COPY_OUT_VENDOR)/etc/excluded-input-devices.xml
+endif
 
 # VINTF
 DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \

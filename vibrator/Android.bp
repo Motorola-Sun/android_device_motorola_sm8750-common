@@ -1,0 +1,41 @@
+//
+// SPDX-FileCopyrightText: The LineageOS Project
+// SPDX-License-Identifier: Apache-2.0
+//
+
+cc_library_static {
+    name: "libtiktapvibratoreffect.moto",
+    vendor: true,
+    srcs: ["effect/effect.cpp"],
+    header_libs: ["libqtivibratoreffect_headers"],
+    export_header_lib_headers: ["libqtivibratoreffect_headers"],
+    export_include_dirs: ["effect"],
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+}
+
+cc_binary {
+    name: "android.hardware.vibrator-service.moto-tiktap",
+    relative_install_path: "hw",
+    init_rc: ["tiktap/android.hardware.vibrator-service.moto-tiktap.rc"],
+    vintf_fragments: ["tiktap/android.hardware.vibrator-service.moto-tiktap.xml"],
+    vendor: true,
+    srcs: [
+        "tiktap/TiktapDevice.cpp",
+        "tiktap/Vibrator.cpp",
+        "tiktap/service.cpp",
+    ],
+    shared_libs: [
+        "android.hardware.vibrator-V2-ndk",
+        "libbase",
+        "libbinder_ndk",
+        "liblog",
+    ],
+    static_libs: ["libtiktapvibratoreffect.moto"],
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+}

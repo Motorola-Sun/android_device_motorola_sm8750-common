@@ -1,0 +1,2 @@
+# TikTap vibrator
+allow init proc_tiktap_buf:file { open read setattr };

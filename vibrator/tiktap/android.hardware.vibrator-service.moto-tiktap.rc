@@ -1,0 +1,17 @@
+on late-fs
+    chown system system /proc/tiktap_buf
+    chmod 0660 /proc/tiktap_buf
+
+on boot
+    # haptic_hv may be probed after late-fs, the HAL opens the node lazily
+    chown system system /proc/tiktap_buf
+    chmod 0660 /proc/tiktap_buf
+    chown system system /sys/class/leds/vibrator/activate
+    chown system system /sys/class/leds/vibrator/duration
+    chown system system /sys/class/leds/vibrator/gain
+    chown system system /sys/class/leds/vibrator/state
+
+service vendor.vibrator.moto-tiktap /vendor/bin/hw/android.hardware.vibrator-service.moto-tiktap
+    class hal
+    user system
+    group system
