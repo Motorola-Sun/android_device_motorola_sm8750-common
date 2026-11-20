@@ -259,6 +259,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     android.hardware.hardware_keystore_V3.xml
 
+ifeq ($(TARGET_USES_ST_NFC), true)
+PRODUCT_PACKAGES += \
+    android.hardware.security.keymint-service.strongbox-thales \
+    android.hardware.weaver-service.thales
+endif
+
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.keystore.app_attest_key.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.keystore.app_attest_key.xml
 
